@@ -1,0 +1,6 @@
+pet:
+  $ref: ./pet.yaml
+newPet:
+  $ref: ./newPet.yaml
+errorModel:
+  $ref: ./errorModel.yaml
