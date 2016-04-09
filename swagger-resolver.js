@@ -1,10 +1,12 @@
 /**
- * Combine the swagger specification parts into a single YAML file.
+ * Combine the swagger specification parts into a single YAML (default) or JSON file.
  */
 
 var resolve = require('json-refs').resolveRefs;
 var YAML = require('js-yaml');
 var fs = require('fs');
+
+var isJson = process.argv.length > 2 && process.argv[2].toLowerCase() === 'json';
 
 process.chdir('api-spec');
 
@@ -19,6 +21,9 @@ var options = {
 };
 
 resolve(root, options).then(function (results) {
-    console.log(YAML.dump(results.resolved, null, 2));
-    //console.log(JSON.stringify(results.resolved, null, 2));
+	if (!isJson) {
+    	console.log(YAML.dump(results.resolved, null, 2));
+	} else {
+		console.log(JSON.stringify(results.resolved, null, 2));
+	}
 });
